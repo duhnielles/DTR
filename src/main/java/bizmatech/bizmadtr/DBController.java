@@ -147,8 +147,8 @@ public List<UserEntry> getUserEntries(String username) {
             Date date = resultSet.getDate("date");
             Time timein = resultSet.getTime("timein");
             Time timeout = resultSet.getTime("timeout");
-            Time timein_pm = resultSet.getTime("timein_pm");
-            Time timeout_pm = resultSet.getTime("timeout_pm");
+            Time timein_pm = resultSet.getTime("timein_Pm");
+            Time timeout_pm = resultSet.getTime("timeout_Pm");
 
             UserEntry entry = new UserEntry(name, lastname, date, timein, timeout, timein_pm, timeout_pm);
             entries.add(entry);

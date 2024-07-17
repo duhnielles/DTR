@@ -62,33 +62,41 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
     model.setRowCount(0); // Clear existing rows
     
      SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss aa");
-    
+    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss aa");
+
     for (UserEntry entry : entries) {
-    String date = dateFormat.format(entry.getdate());
-    String timeinAM = "";
-    String timeoutAM = "";
-    String timeinPM = "";
-    String timeoutPM = "";
+        String date = dateFormat.format(entry.getdate());
+        String timeinAM = "";
+        String timeoutAM = "";
+        String timeinPM = "";
+        String timeoutPM = "";
 
-    if (entry.getTimein() != null) {
-        timeinAM = timeFormat.format(entry.getTimein());
+        if (entry.getTimein() != null) {
+            timeinAM = timeFormat.format(entry.getTimein());
+        }
+
+        if (entry.getTimeout() != null) {
+            timeoutAM = timeFormat.format(entry.getTimeout());
+        }
+
+        if (entry.getTimein_Pm() != null) {
+            timeinPM = timeFormat.format(entry.getTimein_Pm());
+        }
+
+        if (entry.getTimeout_Pm() != null) {
+            timeoutPM = timeFormat.format(entry.getTimeout_Pm());
+        }
+
+        // Debugging output
+        System.out.println("User: " + entry.getname() + " " + entry.getLastname());
+        System.out.println("Date: " + date);
+        System.out.println("Time In AM: " + timeinAM);
+        System.out.println("Time Out AM: " + timeoutAM);
+        System.out.println("Time In PM: " + timeinPM);
+        System.out.println("Time Out PM: " + timeoutPM);
+
+        model.addRow(new Object[]{entry.getname(), entry.getLastname(), date, timeinAM, timeoutAM, timeinPM, timeoutPM});
     }
-
-    if (entry.getTimeout() != null) {
-        timeoutAM = timeFormat.format(entry.getTimeout());
-    }
-
-    if (entry.getTimein_Pm() != null) {
-        timeinPM = timeFormat.format(entry.getTimein_Pm());
-    }
-
-    if (entry.getTimeout_Pm() != null) {
-        timeoutPM = timeFormat.format(entry.getTimeout_Pm());
-    }
-
-    model.addRow(new Object[]{entry.getname(), entry.getLastname(), date, timeinAM, timeoutAM, timeinPM, timeoutPM});
-}
 
 }
     /**
