@@ -164,6 +164,11 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
         jButton4.setText("View Summary");
 
         btnlogout.setText("Log Out");
+        btnlogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlogoutActionPerformed(evt);
+            }
+        });
 
         dropbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         dropbox.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +373,6 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
             populateTable();
         } else {
             JOptionPane.showMessageDialog(this, "Invalid password");
-            txtpass.setText("");
             btnlogin.setEnabled(true);
         }
     }//GEN-LAST:event_btnloginActionPerformed
@@ -400,6 +404,26 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
         JOptionPane.showMessageDialog(this, "Please log in first");
     }
     }//GEN-LAST:event_btntimeoutActionPerformed
+
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+        // TODO add your handling code here:
+        isLoggedIn = false;
+        currentUser = null;
+
+        btnlogin.setEnabled(true);
+        btnlogout.setEnabled(false);
+        btntimein.setEnabled(false);
+        btntimeout.setEnabled(false);
+        dropbox.setEnabled(true);
+        txtpass.setEnabled(true);
+        txtpass.setText(""); // Clear password field
+
+        JOptionPane.showMessageDialog(this, "Logged out successfully!");
+
+        // Clear table
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_btnlogoutActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogin;
