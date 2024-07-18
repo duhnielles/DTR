@@ -78,44 +78,52 @@ public class DBController {
     }
 
     public boolean setTimeIn(String username) {
-        int userId = getUserId(username);
-        if (userId == -1) return false;
-        
-        Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        String insert = "INSERT INTO attendance(user_id, date, timein) VALUES(?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein = NOW()";
-        if (hour >= 12) {
-            insert = "INSERT INTO attendance(user_id, date, timein_pm) VALUES(?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein_pm = NOW()";
-        }
-        try (PreparedStatement preparedStatement = con.prepareStatement(insert)) {
-            preparedStatement.setInt(1, userId);
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+    int userId = getUserId(username);
+    if (userId == -1) return false;
+    
+    Calendar cal = Calendar.getInstance();
+    int hour = cal.get(Calendar.HOUR_OF_DAY);
+    String insert;
+    if (hour < 12) {
+        insert = "INSERT INTO attendance(user_id, date, timein) VALUES (?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein = NOW()";
+    } else {
+        insert = "INSERT INTO attendance(user_id, date, timein_pm) VALUES (?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein_pm = NOW()";
     }
+    
+    try (PreparedStatement preparedStatement = con.prepareStatement(insert)) {
+        preparedStatement.setInt(1, userId);
+        preparedStatement.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 
-    public boolean setTimeOut(String username) {
-        int userId = getUserId(username);
-        if (userId == -1) return false;
-        
-        Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        String update = "UPDATE attendance SET timeout = NOW() WHERE user_id = ? AND date = CURDATE()";
-        if (hour >= 12) {
-            update = "UPDATE attendance SET timeout_pm = NOW() WHERE user_id = ? AND date = CURDATE()";
-        }
-        try (PreparedStatement preparedStatement = con.prepareStatement(update)) {
-            preparedStatement.setInt(1, userId);
-            preparedStatement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+public boolean setTimeOut(String username) {
+    int userId = getUserId(username);
+    if (userId == -1) return false;
+    
+    Calendar cal = Calendar.getInstance();
+    int hour = cal.get(Calendar.HOUR_OF_DAY);
+    String update;
+    if (hour < 12) {
+        update = "UPDATE attendance SET timeout = NOW() WHERE user_id = ? AND date = CURDATE()";
+    } else {
+        update = "UPDATE attendance SET timeout_pm = NOW() WHERE user_id = ? AND date = CURDATE()";
     }
+    
+    try (PreparedStatement preparedStatement = con.prepareStatement(update)) {
+        preparedStatement.setInt(1, userId);
+        preparedStatement.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+
 
     private int getUserId(String username) {
         String query = "SELECT id FROM bizmadb WHERE CONCAT(name, ' ', lastname) = ?";

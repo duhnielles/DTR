@@ -104,74 +104,96 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
 }
     
     
-     private void exportToPDF() {
-        try {
-            PDDocument document = new PDDocument();
-            PDPage page = new PDPage();
-            document.addPage(page);
-
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
-
-            // Define table headers
-            String[] headers = {"Name", "Last Name", "Date", "Time In (AM)", "Time Out (AM)", "Time In (PM)", "Time Out (PM)"};
-
-            // Define table data
-            List<UserEntry> entries = dbController.getUserEntries(currentUser);
-
-            float margin = 50;
-            float yStart = page.getMediaBox().getHeight() - margin;
-            float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
-            float yPosition = yStart;
-            float rowHeight = 20;
-            float cellMargin = 5;
-
-            // Draw headers
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(margin, yStart);
-            for (String header : headers) {
-                contentStream.showText(header);
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-            }
-            contentStream.endText();
-
-            // Draw rows
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
-            for (UserEntry entry : entries) {
-                yPosition -= rowHeight;
-                contentStream.beginText();
-                contentStream.newLineAtOffset(margin, yPosition);
-                contentStream.showText(entry.getname());
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.showText(entry.getLastname());
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.showText(dateFormat.format(entry.getdate()));
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.showText(timeFormat.format(entry.getTimein()));
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.showText(timeFormat.format(entry.getTimeout()));
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.showText(timeFormat.format(entry.getTimein_Pm()));
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.showText(timeFormat.format(entry.getTimeout_Pm()));
-                contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-                contentStream.endText();
-            }
-
-            contentStream.close();
-            document.save(new File("DTR_Report.pdf"));
-            document.close();
-
-            JOptionPane.showMessageDialog(null, "PDF Report generated successfully!");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error generating PDF Report: " + e.getMessage());
+private void exportToPDF() {
+    try {
+        List<UserEntry> entries = dbController.getUserEntries(currentUser);
+        System.out.println("Fetched entries for user: " + currentUser);
+        if (entries.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No data available to generate PDF for the selected user.");
+            return;
         }
+
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
+
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+        // Define table headers
+        String[] headers = {"Name", "Last Name", "Date", "Time In (AM)", "Time Out (AM)", "Time In (PM)", "Time Out (PM)"};
+
+        float margin = 50;
+        float yStart = page.getMediaBox().getHeight() - margin;
+        float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
+        float yPosition = yStart;
+        float rowHeight = 20;
+        float cellMargin = 5;
+
+        // Draw headers
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(margin, yStart);
+        for (String header : headers) {
+            contentStream.showText(header);
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+        }
+        contentStream.endText();
+
+        // Draw rows
+        contentStream.setFont(PDType1Font.HELVETICA, 12);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        for (UserEntry entry : entries) {
+            System.out.println("Processing entry for user: " + currentUser);
+            System.out.println("Name: " + entry.getname());
+            System.out.println("Last Name: " + entry.getLastname());
+            System.out.println("Date: " + entry.getdate());
+            System.out.println("Time In (AM): " + entry.getTimein());
+            System.out.println("Time Out (AM): " + entry.getTimeout());
+            System.out.println("Time In (PM): " + entry.getTimein_Pm());
+            System.out.println("Time Out (PM): " + entry.getTimeout_Pm());
+
+            yPosition -= rowHeight;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(margin, yPosition);
+
+            contentStream.showText(entry.getname() != null ? entry.getname() : "");
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+            contentStream.showText(entry.getLastname() != null ? entry.getLastname() : "");
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+            contentStream.showText(entry.getdate() != null ? dateFormat.format(entry.getdate()) : "");
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+            contentStream.showText(entry.getTimein() != null ? timeFormat.format(entry.getTimein()) : "");
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+            contentStream.showText(entry.getTimeout() != null ? timeFormat.format(entry.getTimeout()) : "");
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+            contentStream.showText(entry.getTimein_Pm() != null ? timeFormat.format(entry.getTimein_Pm()) : "");
+            contentStream.newLineAtOffset((tableWidth / headers.length), 0);
+            contentStream.showText(entry.getTimeout_Pm() != null ? timeFormat.format(entry.getTimeout_Pm()) : "");
+
+            contentStream.endText();
+        }
+
+        contentStream.close();
+        document.save(new File("DTR_Report_" + currentUser + ".pdf"));
+        document.close();
+
+        JOptionPane.showMessageDialog(null, "PDF Report generated successfully!");
+        System.out.println("PDF Report generated successfully for user: " + currentUser);
+
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error generating PDF Report: " + e.getMessage());
+        System.err.println("Error generating PDF Report for user: " + currentUser + ": " + e.getMessage());
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Unexpected error: " + e.getMessage());
+        System.err.println("Unexpected error for user: " + currentUser + ": " + e.getMessage());
     }
+}
+
+
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -469,7 +491,7 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dropboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropboxActionPerformed
-        exportToPDF();
+        
     }//GEN-LAST:event_dropboxActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
@@ -550,7 +572,6 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
     private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
         // TODO add your handling code here:
         exportToPDF();
-        
     }//GEN-LAST:event_btnpdfActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
