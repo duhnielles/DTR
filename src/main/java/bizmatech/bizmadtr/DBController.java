@@ -78,13 +78,17 @@ public class DBController {
     }
 
     public boolean setTimeIn(String username) {
+        int userId = getUserId(username);
+        if (userId == -1) return false;
+        
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        String update = hour < 12 ? 
-            "UPDATE bizmadb SET timein = NOW(), date = CURDATE() WHERE CONCAT(name, ' ', lastname) = ?" : 
-            "UPDATE bizmadb SET timein_pm = NOW(), date = CURDATE() WHERE CONCAT(name, ' ', lastname) = ?";
-        try (PreparedStatement preparedStatement = con.prepareStatement(update)) {
-            preparedStatement.setString(1, username);
+        String insert = "INSERT INTO attendance(user_id, date, timein) VALUES(?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein = NOW()";
+        if (hour >= 12) {
+            insert = "INSERT INTO attendance(user_id, date, timein_pm) VALUES(?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein_pm = NOW()";
+        }
+        try (PreparedStatement preparedStatement = con.prepareStatement(insert)) {
+            preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -94,13 +98,17 @@ public class DBController {
     }
 
     public boolean setTimeOut(String username) {
+        int userId = getUserId(username);
+        if (userId == -1) return false;
+        
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        String update = hour < 12 ? 
-            "UPDATE bizmadb SET timeout = NOW() WHERE CONCAT(name, ' ', lastname) = ?" : 
-            "UPDATE bizmadb SET timeout_pm = NOW() WHERE CONCAT(name, ' ', lastname) = ?";
+        String update = "UPDATE attendance SET timeout = NOW() WHERE user_id = ? AND date = CURDATE()";
+        if (hour >= 12) {
+            update = "UPDATE attendance SET timeout_pm = NOW() WHERE user_id = ? AND date = CURDATE()";
+        }
         try (PreparedStatement preparedStatement = con.prepareStatement(update)) {
-            preparedStatement.setString(1, username);
+            preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -109,9 +117,24 @@ public class DBController {
         return false;
     }
 
+    private int getUserId(String username) {
+        String query = "SELECT id FROM bizmadb WHERE CONCAT(name, ' ', lastname) = ?";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public List<UserEntry> getUserEntries(String username) {
         List<UserEntry> entries = new ArrayList<>();
-        String query = "SELECT name, lastname, date, timein, timeout, timein_pm, timeout_pm FROM bizmadb WHERE CONCAT(name, ' ', lastname) = ?";
+        String query = "SELECT b.name, b.lastname, a.date, a.timein, a.timeout, a.timein_pm, a.timeout_pm FROM attendance a JOIN bizmadb b ON a.user_id = b.id WHERE CONCAT(b.name, ' ', b.lastname) = ?";
         try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
