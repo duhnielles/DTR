@@ -42,10 +42,10 @@ public class register extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtcnumber = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JPasswordField();
-        btnregister = new javax.swing.JToggleButton();
         jLabel7 = new javax.swing.JLabel();
         hyperlink = new javax.swing.JLabel();
+        btnregister = new javax.swing.JToggleButton();
+        txtidno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,25 +66,33 @@ public class register extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("REGISTRATION");
 
+        jLabel2.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
         jLabel2.setText("Name:");
 
+        jLabel3.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
         jLabel3.setText("Last Name:");
 
+        txtname.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
+
+        txtlname.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
         jLabel4.setText("Email Address:");
 
+        txtemail.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
         jLabel5.setText("Contact No. :");
 
-        jLabel6.setText("Password:");
+        txtcnumber.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
 
-        btnregister.setText("Sign Up");
-        btnregister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregisterActionPerformed(evt);
-            }
-        });
+        jLabel6.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
+        jLabel6.setText("ID No. :");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel7.setText("Already have an account?");
 
+        hyperlink.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         hyperlink.setForeground(new java.awt.Color(0, 0, 255));
         hyperlink.setText("Proceed Here.");
         hyperlink.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,62 +101,75 @@ public class register extends javax.swing.JFrame {
             }
         });
 
+        btnregister.setFont(new java.awt.Font("Dubai Medium", 1, 24)); // NOI18N
+        btnregister.setText("Sign Up");
+        btnregister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregisterActionPerformed(evt);
+            }
+        });
+
+        txtidno.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(115, 115, 115))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(jLabel2))
+                            .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addGap(107, 107, 107))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(txtlname, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(39, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtcnumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtidno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6))
-                                    .addGap(19, 19, 19)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtcnumber)
-                                        .addComponent(txtpassword))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addGap(43, 43, 43)
-                                        .addComponent(jLabel2)
-                                        .addGap(112, 112, 112))
-                                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3)
-                                        .addGap(81, 81, 81))
-                                    .addComponent(txtlname, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hyperlink))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(btnregister)))
-                .addGap(26, 26, 26))
+                        .addComponent(hyperlink)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnregister)
+                .addGap(191, 191, 191))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -158,25 +179,25 @@ public class register extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtlname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtcnumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(59, 59, 59)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                    .addComponent(txtidno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addComponent(btnregister)
-                .addGap(44, 44, 44)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(hyperlink))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,31 +231,31 @@ public class register extends javax.swing.JFrame {
         String name = txtname.getText();
         String lastname = txtlname.getText();
         String email = txtemail.getText();
-        String password = String.valueOf(txtpassword.getPassword());
         String contactno = txtcnumber.getText();
+        String idNumber = txtidno.getText(); // Get the ID number 
 
-        if (name.isEmpty() || password.isEmpty() || lastname.isEmpty() || email.isEmpty()) { 
-        JOptionPane.showMessageDialog(this,
+        if (name.isEmpty() || lastname.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
                 "Please fill in all fields.",
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
-        return; 
-    }
-        
-        boolean register = dbController.register(name, lastname, email, contactno, password);
-        
+            return;
+        }
+
+        boolean register = dbController.register(name, lastname, email, contactno, idNumber);
+
         if (register) {
-            JOptionPane.showMessageDialog(this, 
-                    "Added successfully!", "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                "Added successfully!", "Success",
+                JOptionPane.INFORMATION_MESSAGE);
             dispose();
             landingpage lpage = new landingpage();
             lpage.setVisible(true);
             lpage.setLocationRelativeTo(null);
         } else {
-            JOptionPane.showMessageDialog(this, 
-                    "Error", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                "Error",
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnregisterActionPerformed
 
@@ -253,8 +274,8 @@ public class register extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtcnumber;
     private javax.swing.JTextField txtemail;
+    private javax.swing.JTextField txtidno;
     private javax.swing.JTextField txtlname;
     private javax.swing.JTextField txtname;
-    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
 }

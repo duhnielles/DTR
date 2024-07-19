@@ -64,10 +64,11 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
      private void loadUsersToDropbox() {
         List<String> users = dbController.getUsers(); // Fetch the users from the database
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(users.toArray(new String[0])); // Create the model
-        dropbox.setModel(model); // Set the model for the JComboBox
+        //dropbox.setModel(model); // Set the model for the JComboBox
     }
         
-    private void populateTable() {
+private void populateTable() {
+    try {
         List<UserEntry> entries = dbController.getUserEntries(currentUser);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); // Clear existing rows
@@ -75,14 +76,14 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss aa");
 
-    for (UserEntry entry : entries) {
-            String date = dateFormat.format(entry.getdate());
+        for (UserEntry entry : entries) {
+            String date = dateFormat.format(entry.getDate());
             String timeinAM = "";
             String timeoutAM = "";
             String timeinPM = "";
             String timeoutPM = "";
 
-        if (entry.getTimein() != null) {
+            if (entry.getTimein() != null) {
                 timeinAM = timeFormat.format(entry.getTimein());
             }
 
@@ -90,18 +91,23 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
                 timeoutAM = timeFormat.format(entry.getTimeout());
             }
 
-            if (entry.getTimein_Pm() != null) {
-                timeinPM = timeFormat.format(entry.getTimein_Pm());
+            if (entry.getTimeinPm() != null) {
+                timeinPM = timeFormat.format(entry.getTimeinPm());
             }
 
-            if (entry.getTimeout_Pm() != null) {
-                timeoutPM = timeFormat.format(entry.getTimeout_Pm());
+            if (entry.getTimeoutPm() != null) {
+                timeoutPM = timeFormat.format(entry.getTimeoutPm());
             }
 
-            model.addRow(new Object[]{entry.getname(), entry.getLastname(), date, timeinAM, timeoutAM, timeinPM, timeoutPM});
+            model.addRow(new Object[]{entry.getName(), entry.getLastname(), date, timeinAM, timeoutAM, timeinPM, timeoutPM});
         }
-
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Optionally show an error message to the user
+        JOptionPane.showMessageDialog(this, "An error occurred while populating the table.");
+    }
 }
+
     
     
 private void exportToPDF() {
@@ -146,40 +152,60 @@ private void exportToPDF() {
 
         for (UserEntry entry : entries) {
             System.out.println("Processing entry for user: " + currentUser);
-            System.out.println("Name: " + entry.getname());
+            System.out.println("Name: " + entry.getName());
             System.out.println("Last Name: " + entry.getLastname());
-            System.out.println("Date: " + entry.getdate());
+            System.out.println("Date: " + entry.getDate());
             System.out.println("Time In (AM): " + entry.getTimein());
             System.out.println("Time Out (AM): " + entry.getTimeout());
-            System.out.println("Time In (PM): " + entry.getTimein_Pm());
-            System.out.println("Time Out (PM): " + entry.getTimeout_Pm());
+            System.out.println("Time In (PM): " + entry.getTimeinPm());
+            System.out.println("Time Out (PM): " + entry.getTimeoutPm());
 
             yPosition -= rowHeight;
             contentStream.beginText();
             contentStream.newLineAtOffset(margin, yPosition);
 
-            contentStream.showText(entry.getname() != null ? entry.getname() : "");
+            contentStream.showText(entry.getName() != null ? entry.getName() : "");
             contentStream.newLineAtOffset((tableWidth / headers.length), 0);
             contentStream.showText(entry.getLastname() != null ? entry.getLastname() : "");
             contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-            contentStream.showText(entry.getdate() != null ? dateFormat.format(entry.getdate()) : "");
+            contentStream.showText(entry.getDate() != null ? dateFormat.format(entry.getDate()) : "");
             contentStream.newLineAtOffset((tableWidth / headers.length), 0);
             contentStream.showText(entry.getTimein() != null ? timeFormat.format(entry.getTimein()) : "");
             contentStream.newLineAtOffset((tableWidth / headers.length), 0);
             contentStream.showText(entry.getTimeout() != null ? timeFormat.format(entry.getTimeout()) : "");
             contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-            contentStream.showText(entry.getTimein_Pm() != null ? timeFormat.format(entry.getTimein_Pm()) : "");
+            contentStream.showText(entry.getTimeinPm() != null ? timeFormat.format(entry.getTimeinPm()) : "");
             contentStream.newLineAtOffset((tableWidth / headers.length), 0);
-            contentStream.showText(entry.getTimeout_Pm() != null ? timeFormat.format(entry.getTimeout_Pm()) : "");
+            contentStream.showText(entry.getTimeoutPm() != null ? timeFormat.format(entry.getTimeoutPm()) : "");
 
             contentStream.endText();
         }
 
         contentStream.close();
-        document.save(new File("DTR_Report_" + currentUser + ".pdf"));
+
+        // Determine the Downloads folder path
+        String userHome = System.getProperty("user.home");
+        String os = System.getProperty("os.name").toLowerCase();
+        String downloadsFolderPath;
+
+        if (os.contains("win")) {
+            downloadsFolderPath = userHome + "\\Downloads\\";
+        } else {
+            downloadsFolderPath = userHome + "/Downloads/";
+        }
+
+        // Ensure the directory exists
+        File downloadsFolder = new File(downloadsFolderPath);
+        if (!downloadsFolder.exists()) {
+            downloadsFolder.mkdirs();
+        }
+
+        // Save the document in the Downloads folder
+        File file = new File(downloadsFolderPath + "DTR_Report_" + currentUser + ".pdf");
+        document.save(file);
         document.close();
 
-        JOptionPane.showMessageDialog(null, "PDF Report generated successfully!");
+        JOptionPane.showMessageDialog(null, "PDF Report generated successfully! File directory: Downloads.");
         System.out.println("PDF Report generated successfully for user: " + currentUser);
 
     } catch (IOException e) {
@@ -192,7 +218,6 @@ private void exportToPDF() {
         System.err.println("Unexpected error for user: " + currentUser + ": " + e.getMessage());
     }
 }
-
 
    
     /**
@@ -209,18 +234,16 @@ private void exportToPDF() {
         jPanel2 = new javax.swing.JPanel();
         btnlogin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtpass = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         btntimein = new javax.swing.JButton();
         btntimeout = new javax.swing.JButton();
         btnpdf = new javax.swing.JButton();
         runningtime = new javax.swing.JLabel();
         btnlogout = new javax.swing.JButton();
-        dropbox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtdate = new javax.swing.JLabel();
         txtuserlabel = new javax.swing.JLabel();
+        txtid = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -232,8 +255,9 @@ private void exportToPDF() {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
+        jPanel1.setRequestFocusEnabled(false);
 
-        btnlogin.setFont(new java.awt.Font("Segoe UI Historic", 0, 24)); // NOI18N
+        btnlogin.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btnlogin.setText("Log In");
         btnlogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,15 +268,10 @@ private void exportToPDF() {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("User:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel2.setText("Password:");
-
-        txtpass.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Time:");
 
-        btntimein.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btntimein.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btntimein.setText("Time In");
         btntimein.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +279,7 @@ private void exportToPDF() {
             }
         });
 
-        btntimeout.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btntimeout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btntimeout.setText("Time Out");
         btntimeout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +287,7 @@ private void exportToPDF() {
             }
         });
 
-        btnpdf.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnpdf.setFont(new java.awt.Font("Eras Demi ITC", 1, 24)); // NOI18N
         btnpdf.setText("View Printable PDF");
         btnpdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,19 +297,11 @@ private void exportToPDF() {
 
         runningtime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        btnlogout.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnlogout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btnlogout.setText("Log Out");
         btnlogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlogoutActionPerformed(evt);
-            }
-        });
-
-        dropbox.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        dropbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        dropbox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropboxActionPerformed(evt);
             }
         });
 
@@ -302,6 +313,8 @@ private void exportToPDF() {
         txtuserlabel.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtuserlabel.setForeground(new java.awt.Color(51, 153, 255));
 
+        txtid.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -309,65 +322,58 @@ private void exportToPDF() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnlogin)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnlogout)
-                        .addGap(63, 63, 63))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dropbox, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(btnpdf)
+                            .addGap(11, 11, 11))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(btnlogin)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnlogout)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(btntimein)
                                     .addGap(32, 32, 32)
                                     .addComponent(btntimeout))
-                                .addComponent(txtuserlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnpdf)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(runningtime, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(80, 80, 80))))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(runningtime, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(txtuserlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
+                        .addGap(166, 166, 166)
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dropbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(11, 11, 11)
+                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnlogout)
                     .addComponent(btnlogin))
                 .addGap(18, 18, 18)
                 .addComponent(btnpdf)
-                .addGap(45, 45, 45)
+                .addGap(88, 88, 88)
                 .addComponent(txtuserlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -378,11 +384,11 @@ private void exportToPDF() {
                         .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(runningtime, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68)
+                .addGap(72, 72, 72)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btntimein)
                     .addComponent(btntimeout))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 70)); // NOI18N
@@ -490,63 +496,6 @@ private void exportToPDF() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dropboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropboxActionPerformed
-        
-    }//GEN-LAST:event_dropboxActionPerformed
-
-    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-        String selectedUser = (String) dropbox.getSelectedItem();
-        String password = new String(txtpass.getPassword());
-
-        if (dbController.validateUser(selectedUser, password)) {
-            isLoggedIn = true;
-            currentUser = selectedUser;
-            SwingUtilities.invokeLater(() -> {
-            txtuserlabel.setText("Logged in as: " + currentUser);
-         
-            // Enable Time In and Time Out buttons
-            btntimein.setEnabled(true);
-            btntimeout.setEnabled(true);
-            
-            // disable log in and log out buttons
-            btnlogout.setEnabled(true);
-            });
-            
-            populateTable();
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid password");
-            btnlogin.setEnabled(true);
-        }
-    }//GEN-LAST:event_btnloginActionPerformed
-
-    private void btntimeinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimeinActionPerformed
-        // TODO add your handling code here:
-        if (isLoggedIn) {
-        if (dbController.setTimeIn(currentUser)) {
-            JOptionPane.showMessageDialog(this, "Time In Recorded Successfully");
-            populateTable();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to Record Time In");
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Please log in first");
-    }
-    }//GEN-LAST:event_btntimeinActionPerformed
-
-    private void btntimeoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimeoutActionPerformed
-        // TODO add your handling code here:
-        if (isLoggedIn) {
-        if (dbController.setTimeOut(currentUser)) {
-            JOptionPane.showMessageDialog(this, "Time Out Recorded Successfully");
-            populateTable();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to Record Time Out");
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Please log in first");
-    }
-    }//GEN-LAST:event_btntimeoutActionPerformed
-
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         // TODO add your handling code here:
         isLoggedIn = false;
@@ -556,9 +505,9 @@ private void exportToPDF() {
         btnlogout.setEnabled(false);
         btntimein.setEnabled(false);
         btntimeout.setEnabled(false);
-        dropbox.setEnabled(true);
-        txtpass.setEnabled(true);
-        txtpass.setText(""); // Clear password field
+        //dropbox.setEnabled(true);
+        txtid.setEnabled(true);
+        txtid.setText(""); // Clear password field
 
         txtuserlabel.setText(""); // Clear user label
 
@@ -574,15 +523,68 @@ private void exportToPDF() {
         exportToPDF();
     }//GEN-LAST:event_btnpdfActionPerformed
 
+    private void btntimeoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimeoutActionPerformed
+        // TODO add your handling code here:
+        if (isLoggedIn) {
+            if (dbController.setTimeOut(currentUser)) {
+                JOptionPane.showMessageDialog(this, "Time Out Recorded Successfully");
+                populateTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to Record Time Out");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please log in first");
+        }
+    }//GEN-LAST:event_btntimeoutActionPerformed
+
+    private void btntimeinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimeinActionPerformed
+        // TODO add your handling code here:
+        if (isLoggedIn) {
+            if (dbController.setTimeIn(currentUser)) {
+                JOptionPane.showMessageDialog(this, "Time In Recorded Successfully");
+                populateTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to Record Time In");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please log in first");
+        }
+    }//GEN-LAST:event_btntimeinActionPerformed
+
+    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
+        String userId = txtid.getText();
+
+        if (dbController.validateUser(userId)) {
+        isLoggedIn = true;
+        currentUser = userId;
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(this, "Successfully logged in!");
+            txtuserlabel.setText("Logged in as: " + currentUser);
+
+            // Enable Time In and Time Out buttons
+            btntimein.setEnabled(true);
+            btntimeout.setEnabled(true);
+
+            // Disable Log In and enable Log Out buttons
+            btnlogin.setEnabled(false);
+            btnlogout.setEnabled(true);
+        });
+
+            populateTable();
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid user ID");
+        txtid.setText(""); // Clear user ID field
+        btnlogin.setEnabled(true);
+    }
+    }//GEN-LAST:event_btnloginActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogin;
     private javax.swing.JButton btnlogout;
     private javax.swing.JButton btnpdf;
     private javax.swing.JButton btntimein;
     private javax.swing.JButton btntimeout;
-    private javax.swing.JComboBox<String> dropbox;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -594,7 +596,7 @@ private void exportToPDF() {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel runningtime;
     private javax.swing.JLabel txtdate;
-    private javax.swing.JPasswordField txtpass;
+    private javax.swing.JTextField txtid;
     private javax.swing.JLabel txtuserlabel;
     // End of variables declaration//GEN-END:variables
     

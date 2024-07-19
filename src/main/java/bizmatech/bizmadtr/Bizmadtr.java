@@ -13,5 +13,9 @@ public class Bizmadtr {
         register register = new register();
         register.setVisible(true);
         register.setLocationRelativeTo(null);
+        
+        //landingpage lpage = new landingpage();
+        //lpage.setVisible(true);
+        //lpage.setLocationRelativeTo(null);
     }
 }
