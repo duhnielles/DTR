@@ -213,7 +213,7 @@ public class register extends javax.swing.JFrame {
         String password = String.valueOf(txtpassword.getPassword());
         String contactno = txtcnumber.getText();
 
-        if (name.isEmpty() || password.isEmpty() || lastname.isEmpty() || email.isEmpty()) { // Add other fields in this condition as necessary
+        if (name.isEmpty() || password.isEmpty() || lastname.isEmpty() || email.isEmpty()) { 
         JOptionPane.showMessageDialog(this,
                 "Please fill in all fields.",
                 "Error",
