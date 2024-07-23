@@ -230,187 +230,29 @@ private void exportToPDF() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        txtuserlabel = new javax.swing.JLabel();
+        btnpdf = new javax.swing.JButton();
+        runningtime = new javax.swing.JLabel();
+        txtdate = new javax.swing.JLabel();
+        btnlogout = new javax.swing.JButton();
         btnlogin = new javax.swing.JButton();
+        txtid = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btntimein = new javax.swing.JButton();
         btntimeout = new javax.swing.JButton();
-        btnpdf = new javax.swing.JButton();
-        runningtime = new javax.swing.JLabel();
-        btnlogout = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txtdate = new javax.swing.JLabel();
-        txtuserlabel = new javax.swing.JLabel();
-        txtid = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("BIZMATECH"); // NOI18N
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 0));
-        jPanel1.setRequestFocusEnabled(false);
-
-        btnlogin.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
-        btnlogin.setText("Log In");
-        btnlogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnloginActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel1.setText("User:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("Time:");
-
-        btntimein.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
-        btntimein.setText("Time In");
-        btntimein.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btntimeinActionPerformed(evt);
-            }
-        });
-
-        btntimeout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
-        btntimeout.setText("Time Out");
-        btntimeout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btntimeoutActionPerformed(evt);
-            }
-        });
-
-        btnpdf.setFont(new java.awt.Font("Eras Demi ITC", 1, 24)); // NOI18N
-        btnpdf.setText("View Printable PDF");
-        btnpdf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnpdfActionPerformed(evt);
-            }
-        });
-
-        runningtime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-
-        btnlogout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
-        btnlogout.setText("Log Out");
-        btnlogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnlogoutActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("Date:");
-
-        txtdate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-
-        txtuserlabel.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        txtuserlabel.setForeground(new java.awt.Color(51, 153, 255));
-
-        txtid.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(btnpdf)
-                            .addGap(11, 11, 11))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(btnlogin)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnlogout)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btntimein)
-                                    .addGap(32, 32, 32)
-                                    .addComponent(btntimeout))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel3))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(runningtime, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addComponent(txtuserlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(45, 45, 45))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(11, 11, 11)
-                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnlogout)
-                    .addComponent(btnlogin))
-                .addGap(18, 18, 18)
-                .addComponent(btnpdf)
-                .addGap(88, 88, 88)
-                .addComponent(txtuserlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel4)
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(runningtime, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(72, 72, 72)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btntimein)
-                    .addComponent(btntimeout))
-                .addContainerGap(83, Short.MAX_VALUE))
-        );
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 70)); // NOI18N
-        jLabel5.setText("BIZMATECH");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
-        jLabel6.setText("Daily Time Record");
-
-        jPanel3.setBackground(new java.awt.Color(255, 153, 51));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 771, Short.MAX_VALUE)
-        );
-
-        jTable1.setBackground(new java.awt.Color(255, 204, 153));
+        jTable1.setBackground(new java.awt.Color(237, 192, 87));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -442,86 +284,91 @@ private void exportToPDF() {
             jTable1.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(607, 607, 607)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(660, 660, 660)
-                        .addComponent(jLabel6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, 1191, 680));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        txtuserlabel.setFont(new java.awt.Font("Segoe UI", 3, 30)); // NOI18N
+        txtuserlabel.setForeground(java.awt.Color.orange);
+        getContentPane().add(txtuserlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 321, 120));
+
+        btnpdf.setFont(new java.awt.Font("Eras Demi ITC", 1, 24)); // NOI18N
+        btnpdf.setText("View Printable PDF");
+        btnpdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpdfActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
+
+        runningtime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        getContentPane().add(runningtime, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 690, 184, 49));
+
+        txtdate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        getContentPane().add(txtdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 610, 184, 49));
+
+        btnlogout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
+        btnlogout.setText("Log Out");
+        btnlogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, -1, -1));
+
+        btnlogin.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
+        btnlogin.setText("Log In");
+        btnlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
+
+        txtid.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 341, 61));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel1.setText("User:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("Date:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setText("Time:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 700, -1, -1));
+
+        btntimein.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
+        btntimein.setText("Time In");
+        btntimein.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimeinActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btntimein, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 810, -1, -1));
+
+        btntimeout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
+        btntimeout.setText("Time Out");
+        btntimeout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimeoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btntimeout, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 810, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bizmatech/bizmadtr/backlogo1.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, -200, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bizmatech/bizmadtr/BACKGROUND 1.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
-        // TODO add your handling code here:
-        isLoggedIn = false;
-        currentUser = null;
-
-        btnlogin.setEnabled(true);
-        btnlogout.setEnabled(false);
-        btntimein.setEnabled(false);
-        btntimeout.setEnabled(false);
-        //dropbox.setEnabled(true);
-        txtid.setEnabled(true);
-        txtid.setText(""); // Clear password field
-
-        txtuserlabel.setText(""); // Clear user label
-
-        JOptionPane.showMessageDialog(this, "Logged out successfully!");
-
-        // Clear table
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-    }//GEN-LAST:event_btnlogoutActionPerformed
-
-    private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
-        // TODO add your handling code here:
-        exportToPDF();
-    }//GEN-LAST:event_btnpdfActionPerformed
 
     private void btntimeoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimeoutActionPerformed
         // TODO add your handling code here:
@@ -554,12 +401,18 @@ private void exportToPDF() {
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         String userId = txtid.getText();
 
-        if (dbController.validateUser(userId)) {
+    if (dbController.validateUser(userId)) {
         isLoggedIn = true;
         currentUser = userId;
+        String fullName = dbController.getUserFullName(userId); 
+
         SwingUtilities.invokeLater(() -> {
             JOptionPane.showMessageDialog(this, "Successfully logged in!");
-            txtuserlabel.setText("Logged in as: " + currentUser);
+            if (fullName != null) {
+                txtuserlabel.setText("<html>Logged in as:<br>" + fullName + "</html>");
+            } else {
+                txtuserlabel.setText("<html>Logged in as:<br>" + currentUser + "</html>"); 
+            }
 
             // Enable Time In and Time Out buttons
             btntimein.setEnabled(true);
@@ -570,13 +423,48 @@ private void exportToPDF() {
             btnlogout.setEnabled(true);
         });
 
-            populateTable();
+        populateTable();
     } else {
         JOptionPane.showMessageDialog(this, "Invalid user ID");
-        txtid.setText(""); // Clear user ID field
+        txtid.setText(""); 
         btnlogin.setEnabled(true);
     }
     }//GEN-LAST:event_btnloginActionPerformed
+
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
+        // TODO add your handling code here:
+        isLoggedIn = false;
+        currentUser = null;
+
+        btnlogin.setEnabled(true);
+        btnlogout.setEnabled(false);
+        btntimein.setEnabled(false);
+        btntimeout.setEnabled(false);
+        //dropbox.setEnabled(true);
+        txtid.setEnabled(true);
+        txtid.setText(""); // Clear password field
+
+        txtuserlabel.setText(""); // Clear user label
+
+        JOptionPane.showMessageDialog(this, "Logged out successfully!");
+
+        // Clear table
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_btnlogoutActionPerformed
+
+    private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
+        // TODO add your handling code here:
+        exportToPDF();
+    }//GEN-LAST:event_btnpdfActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        register register = new register();
+        register.setVisible(true);
+        register.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogin;
@@ -585,13 +473,10 @@ private void exportToPDF() {
     private javax.swing.JButton btntimein;
     private javax.swing.JButton btntimeout;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel runningtime;

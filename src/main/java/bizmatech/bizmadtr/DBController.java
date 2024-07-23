@@ -63,7 +63,7 @@ public class DBController {
     
 
     public boolean validateUser(String userId) {
-        String query = "SELECT * FROM bizmadb WHERE user_id = ?";
+        String query = "SELECT * FROM bizmadb WHERE id_number = ?";
         try (PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setString(1, userId); // Set the user_id as a String
             ResultSet rs = stmt.executeQuery();
@@ -82,9 +82,9 @@ public class DBController {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         String insert;
         if (hour < 12) {
-            insert = "INSERT INTO attendance(user_id, date, timein) VALUES (?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein = NOW()";
+            insert = "INSERT INTO attendance(id_number, date, timein) VALUES (?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein = NOW()";
         } else {
-            insert = "INSERT INTO attendance(user_id, date, timein_pm) VALUES (?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein_pm = NOW()";
+            insert = "INSERT INTO attendance(id_number, date, timein_pm) VALUES (?, CURDATE(), NOW()) ON DUPLICATE KEY UPDATE timein_pm = NOW()";
         }
 
         try (PreparedStatement preparedStatement = con.prepareStatement(insert)) {
@@ -107,9 +107,9 @@ public class DBController {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         String update;
         if (hour < 12) {
-            update = "UPDATE attendance SET timeout = NOW() WHERE user_id = ? AND date = CURDATE()";
+            update = "UPDATE attendance SET timeout = NOW() WHERE id_number = ? AND date = CURDATE()";
         } else {
-            update = "UPDATE attendance SET timeout_pm = NOW() WHERE user_id = ? AND date = CURDATE()";
+            update = "UPDATE attendance SET timeout_pm = NOW() WHERE id_number = ? AND date = CURDATE()";
         }
 
         try (PreparedStatement preparedStatement = con.prepareStatement(update)) {
@@ -125,7 +125,7 @@ public class DBController {
 
 
     private boolean getUserId(String userId) {
-        String query = "SELECT COUNT(*) FROM bizmadb WHERE user_id = ?";
+        String query = "SELECT COUNT(*) FROM bizmadb WHERE id_number = ?";
         try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
             preparedStatement.setString(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -136,15 +136,15 @@ public class DBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false; // Return false if user_id is not found
+        return false; 
     }
 
 
     public List<UserEntry> getUserEntries(String userId) throws SQLException {
     List<UserEntry> entries = new ArrayList<>();
     String query = "SELECT b.name, b.lastname, a.date, a.timein, a.timeout, a.timein_pm, a.timeout_pm " +
-                   "FROM attendance a JOIN bizmadb b ON a.user_id = b.user_id " +
-                   "WHERE b.user_id = ?"; 
+                   "FROM attendance a JOIN bizmadb b ON a.user_id = b.id_number " +
+                   "WHERE b.id_number = ?"; 
     try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
         preparedStatement.setString(1, userId); 
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -167,4 +167,21 @@ public class DBController {
     return entries;
 }
 
+    public String getUserFullName(String userId) {
+        String query = "SELECT name, lastname FROM bizmadb WHERE id_number = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    String lastName = rs.getString("lastname");
+                    return name + " " + lastName;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
 }
