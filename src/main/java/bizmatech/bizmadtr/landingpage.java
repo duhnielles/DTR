@@ -61,6 +61,8 @@ public class landingpage extends javax.swing.JFrame implements Runnable {
         Date();
     }
     
+    
+    
      private void loadUsersToDropbox() {
         List<String> users = dbController.getUsers(); // Fetch the users from the database
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(users.toArray(new String[0])); // Create the model
@@ -248,8 +250,12 @@ private void exportToPDF() {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1685, 977));
+        setMinimumSize(new java.awt.Dimension(1685, 977));
         setName("BIZMATECH"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1685, 977));
         setResizable(false);
+        setSize(new java.awt.Dimension(1685, 977));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setBackground(new java.awt.Color(237, 192, 87));
@@ -284,11 +290,11 @@ private void exportToPDF() {
             jTable1.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, 1191, 680));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, 1191, 560));
 
         txtuserlabel.setFont(new java.awt.Font("Segoe UI", 3, 30)); // NOI18N
         txtuserlabel.setForeground(java.awt.Color.orange);
-        getContentPane().add(txtuserlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 321, 120));
+        getContentPane().add(txtuserlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 321, 120));
 
         btnpdf.setFont(new java.awt.Font("Eras Demi ITC", 1, 24)); // NOI18N
         btnpdf.setText("View Printable PDF");
@@ -297,13 +303,13 @@ private void exportToPDF() {
                 btnpdfActionPerformed(evt);
             }
         });
-        getContentPane().add(btnpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
+        getContentPane().add(btnpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, -1, -1));
 
         runningtime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        getContentPane().add(runningtime, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 690, 184, 49));
+        getContentPane().add(runningtime, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 640, 184, 49));
 
         txtdate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        getContentPane().add(txtdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 610, 184, 49));
+        getContentPane().add(txtdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 560, 184, 49));
 
         btnlogout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btnlogout.setText("Log Out");
@@ -312,7 +318,7 @@ private void exportToPDF() {
                 btnlogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, -1, -1));
+        getContentPane().add(btnlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, -1, -1));
 
         btnlogin.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btnlogin.setText("Log In");
@@ -321,22 +327,22 @@ private void exportToPDF() {
                 btnloginActionPerformed(evt);
             }
         });
-        getContentPane().add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
+        getContentPane().add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         txtid.setFont(new java.awt.Font("Dubai Light", 0, 24)); // NOI18N
-        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 341, 61));
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 341, 61));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("User:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setText("Date:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 570, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Time:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 700, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 650, -1, -1));
 
         btntimein.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btntimein.setText("Time In");
@@ -345,7 +351,7 @@ private void exportToPDF() {
                 btntimeinActionPerformed(evt);
             }
         });
-        getContentPane().add(btntimein, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 810, -1, -1));
+        getContentPane().add(btntimein, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 720, -1, -1));
 
         btntimeout.setFont(new java.awt.Font("Eras Light ITC", 0, 24)); // NOI18N
         btntimeout.setText("Time Out");
@@ -354,7 +360,7 @@ private void exportToPDF() {
                 btntimeoutActionPerformed(evt);
             }
         });
-        getContentPane().add(btntimeout, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 810, -1, -1));
+        getContentPane().add(btntimeout, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 720, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bizmatech/bizmadtr/backlogo1.png"))); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -365,7 +371,7 @@ private void exportToPDF() {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, -200, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bizmatech/bizmadtr/BACKGROUND 1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1000));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

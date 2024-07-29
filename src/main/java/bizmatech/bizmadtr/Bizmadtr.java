@@ -3,6 +3,9 @@
  */
 
 package bizmatech.bizmadtr;
+
+import javax.swing.UIManager;
+
 /**
  *
  * @author Danielle
@@ -10,6 +13,7 @@ package bizmatech.bizmadtr;
 public class Bizmadtr {
 
     public static void main(String[] args) {
+        
         register register = new register();
         register.setVisible(true);
         register.setLocationRelativeTo(null);
